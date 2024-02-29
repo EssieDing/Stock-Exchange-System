@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+    db:
+        image: postgres
+        environment:
+            - POSTGRES_DB=postgres
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=P@ssw0rd!
+        volumes:
+            - data-volume:/var/lib/postgresql/data
+
+    app:
+        build: ./
+        command: /code/scripts/runserver.sh
+        ports:
+          - "12345:12345"
+        depends_on:
+            - db
+
+volumes:
+    data-volume:
